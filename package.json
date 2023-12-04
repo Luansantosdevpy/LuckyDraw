@@ -1,0 +1,11 @@
+{
+  "name": "sweepstakes-project",
+  "version": "1.0.0",
+  "description": "Projeto destinado aos serviços de compra de pontos de sorteio",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Luan Santos",
+  "license": "ISC"
+}

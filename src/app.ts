@@ -3,6 +3,9 @@ import cors from 'cors';
 import express from 'express';
 import { Server } from 'http';
 import Logger from './infrastructure/log/logger';
+import dependencyContainer from './dependencyContainer';
+import { container } from 'tsyringe';
+import routes from './api/routes/routes';
 
 export default class App {
   public express: express.Application = express();
@@ -10,7 +13,9 @@ export default class App {
   private server: Server;
 
   public initialize = async (): Promise<void> => {
+    await this.dependencyContainer();
     await this.middlewares();
+    await this.routes();
   };
 
   public start = (port: number, appName: string): void => {
@@ -33,5 +38,13 @@ export default class App {
       })
     );
     this.express.use(cors());
+  };
+
+  private dependencyContainer = async (): Promise<void> => {
+    await dependencyContainer(container);
+  };
+
+  private routes = async (): Promise<void> => {
+    this.express.use(await routes());
   };
 }
